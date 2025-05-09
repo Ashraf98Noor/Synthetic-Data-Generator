@@ -94,4 +94,4 @@ field_templates = [
 
 ---
 
-* *Happy data generating! 🎉 * *
+*Happy data generating!* 🎉

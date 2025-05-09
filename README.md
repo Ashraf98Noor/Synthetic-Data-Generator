@@ -1,4 +1,3 @@
-Create Synthetic Datasets for Data Visualization
 # Synthetic Data Generator 📊
 ## Create Synthetic Datasets for Data Visualization
 

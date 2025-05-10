@@ -30,42 +30,46 @@ def generate_date(start_date, end_date):
     random_days = random.randint(0, delta.days)
     return start_date + timedelta(days=random_days)
 
+# You can embed custom business logic here to create realistic dependencies
+# between fields. For example, below we tie the 'Spending Amount' distribution
+# directly to the chosen 'Subscription Plan', so Premium users spend more on average.
+
 def generate_marketing_data(fields):
-    """
-    Create a single record (dict) based on `fields` template.
-
-    Args:
-        fields (list of tuples): Each tuple defines a column:
-            (name, data_type, *params)
-            - data_type 'int': params = (min, max)
-            - data_type 'float': params = (min, max)
-            - data_type 'str': params = list of valid strings
-            - data_type 'date': params = (start_date_str, end_date_str)
-
-    Returns:
-        dict: One randomly generated record.
-    """
     record = {}
-    for field in fields:
-        name, data_type, *params = field
 
-        if data_type == 'int':
-            # ❗️ Change integer range here:
+    # 1) First pass: pick your plan
+    for name, data_type, *params in fields:
+        if name == 'Subscription Plan':
+            record[name] = random.choice(params)
+            break
+
+    # 2) Second pass: generate everything else
+    for name, data_type, *params in fields:
+        if name == 'Subscription Plan':
+            continue
+
+        if name == 'Spending Amount':
+            plan = record['Subscription Plan']
+            if plan == 'Free':
+                record[name] = round(random.uniform(0, 100), 2)
+            elif plan == 'Basic':
+                record[name] = round(random.uniform(50, 300), 2)
+            else:  # Premium
+                record[name] = round(random.uniform(200, 1000), 2)
+
+        elif data_type == 'int':
             record[name] = random.randint(params[0], params[1])
 
         elif data_type == 'float':
-            # ❗️ Change float range here:
             record[name] = round(random.uniform(params[0], params[1]), 2)
 
         elif data_type == 'str':
-            # ❗️ Change list of possible strings here:
             record[name] = random.choice(params)
 
         elif data_type == 'date':
-            # ❗️ Change date range strings here (YYYY-MM-DD):
-            start_date = datetime.strptime(params[0], "%Y-%m-%d")
-            end_date   = datetime.strptime(params[1], "%Y-%m-%d")
-            record[name] = generate_date(start_date, end_date)
+            start = datetime.strptime(params[0], "%Y-%m-%d")
+            end   = datetime.strptime(params[1], "%Y-%m-%d")
+            record[name] = generate_date(start, end)
 
         else:
             raise ValueError(f"Unsupported data type: {data_type}")

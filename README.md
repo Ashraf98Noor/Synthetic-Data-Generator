@@ -73,6 +73,7 @@ Primarily created for practising data visualizations, this is a simple, customiz
   * **Floats**: `(min, max)`
   * **Strings**: `('Option1', 'Option2', ... )`
   * **Dates**: `('YYYY-MM-DD', 'YYYY-MM-DD')`
+* **Embed Custom Logic**: Tweak the generate_marketing_data() function to add dependencies or functional relationships between fields
 
 Example:
 

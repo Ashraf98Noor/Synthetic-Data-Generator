@@ -15,7 +15,7 @@ Primarily created for practising data visualizations, this is a simple, customiz
 
 * **Flexible Schema**: Define any fields (integers, floats, strings, dates).
 * **Customizable Ranges**: Easily set value ranges or categorical options.
-* **Custom Business Logic: Embed conditional and functional relationships between fields for realistic data patterns.
+* **Custom Business Logic**: Embed conditional and functional relationships between fields for realistic data patterns.
 * **Quick Setup**: Minimal dependencies (Python + pandas).
 * **Instant Preview**: Prints a sample of generated data.
 * **CSV Export**: Outputs to CSV for easy integration.
